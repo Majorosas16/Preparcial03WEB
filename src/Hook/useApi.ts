@@ -1,0 +1,22 @@
+//Este es el hook para traer el API
+import { useState, useEffect } from "react";
+
+const useApi = () => {
+  const [RickMorty, setBooksLocal] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((res) => res.json())
+      .then((datos) => {
+        setBooksLocal(datos.results);
+        
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { RickMorty, loading };
+};
+
+export default useApi;
