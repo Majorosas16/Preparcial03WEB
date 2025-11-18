@@ -4,26 +4,26 @@ import type { RickMorty } from "../../Types/RickMortyType";
 //Hay que crearle un tipado al estado inicial
 interface SliceType {
   apiRickMorty: RickMorty[];
-  digiFav: RickMorty[];
+  RickMortyAdd: RickMorty[];
 }
 
 const initialState: SliceType = {
   apiRickMorty: [],
-  digiFav: [],
+  RickMortyAdd: [],
 };
 
-export const DigiSlice = createSlice({
+export const RickMortySlice = createSlice({
   name: "digi",
   initialState,
   reducers: {
     saveApi: (state, action) => {
       state.apiRickMorty = action.payload;
     },
-    saveDigi: (state, action: PayloadAction<RickMorty>) => {
-      state.digiFav = [...state.digiFav, action.payload];
+    saveRickMorty: (state, action: PayloadAction<RickMorty>) => {
+      state.RickMortyAdd = [...state.RickMortyAdd, action.payload];
     },
   },
 });
 
-export const { saveApi, saveDigi } = DigiSlice.actions;
-export default DigiSlice.reducer;
+export const { saveApi, saveRickMorty } = RickMortySlice.actions;
+export default RickMortySlice.reducer;

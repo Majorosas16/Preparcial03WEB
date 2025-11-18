@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import DigiSlice from "./slices/DigiSlice";
+import RickMortySlice from "./slices/RickMortySlice";
 
 export const store = configureStore({
   reducer: {
-    rickMorty: DigiSlice,
+    rickMorty: RickMortySlice,
   },
 });
 
