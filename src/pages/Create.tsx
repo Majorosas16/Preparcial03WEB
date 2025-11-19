@@ -11,10 +11,12 @@ const CreateForm = () => {
   const [speciesInput, setSpeciesInput] = useState("");
   const [statusInput, setStatusInput] = useState("");
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const create: RickMorty = {
       id: Math.floor(Math.random() * 10000),
       image: imgInput,
@@ -22,8 +24,10 @@ const CreateForm = () => {
       species: speciesInput,
       status: statusInput,
     };
-    e.preventDefault();
+
     dispatch(saveRickMorty(create));
+
+    // Reestablezco los campos del formulario
     setImgInput("");
     setNameInput("");
     setSpeciesInput("");
@@ -31,8 +35,8 @@ const CreateForm = () => {
   };
 
   return (
-      <>
-          <button onClick={()=>navigate(RoutesType.home)} >Back home</button>
+    <>
+      <button onClick={() => navigate(RoutesType.home)}>Back home</button>
       <form onSubmit={(e) => sendForm(e)}>
         <input
           onChange={(e) => setImgInput(e.target.value)}

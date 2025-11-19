@@ -5,6 +5,7 @@ import type { RootState } from "../redux/store";
 import { useState, useEffect } from "react";
 import type { RickMorty } from "../Types/RickMortyType";
 import { RoutesType } from "../Types/RoutesType";
+import useApi from "../Hook/useApi";
 
 const EditForm = () => {
   const [nameInput, setNameInput] = useState("");
@@ -14,14 +15,16 @@ const EditForm = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loading } = useApi();
 
   const rickMorty = useSelector(
     (state: RootState) => state.rickMorty.apiRickMorty
   );
-  console.log(rickMorty);
 
+  // Personaje a editar
   const toEdit = rickMorty.find((c) => c.id.toString() === id);
 
+  // Rellena los campos del formulario con los datos del personaje a editar
   useEffect(() => {
     if (toEdit) {
       setNameInput(toEdit.name);
@@ -43,17 +46,21 @@ const EditForm = () => {
     navigate(RoutesType.home);
   };
 
+  if (loading) return <p>Cargando editar.....</p>;
+
   return (
     <div>
       <button onClick={() => navigate(RoutesType.home)}>Back to home</button>
+
+      {/* Detalle de que aparezca la imagen del personaje que se va a editar */}
       {toEdit ? (
-          <img src={toEdit.image} alt={toEdit.name} />
+        <img src={toEdit.image} alt={toEdit.name} />
       ) : (
         <h1>Personaje no encontrado</h1>
       )}
 
       <input
-        placeholder="Ingresa el name"
+        placeholder="Ingresa el nombre"
         type="text"
         value={nameInput}
         onChange={(e) => setNameInput(e.target.value)}
@@ -65,7 +72,7 @@ const EditForm = () => {
         onChange={(e) => setStatusInput(e.target.value)}
       />
       <input
-        placeholder="Ingresa la specie"
+        placeholder="Ingresa la especie"
         type="text"
         value={speciesInput}
         onChange={(e) => setSpeciesInput(e.target.value)}

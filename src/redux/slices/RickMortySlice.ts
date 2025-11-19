@@ -22,9 +22,11 @@ export const RickMortySlice = createSlice({
     saveRickMorty: (state, action: PayloadAction<RickMorty>) => {
       state.apiRickMorty = [...state.apiRickMorty, action.payload];
     },
+    // Establece el userType a un valor concreto (admin o user)
     setUserType: (state, action: PayloadAction<"admin" | "user">) => {
       state.userType = action.payload;
     },
+    //Cambia automáticamente de admin a user o viceversa según el estado actual
     toggleUserType: (state) => {
       state.userType = state.userType === "admin" ? "user" : "admin";
     },
@@ -33,7 +35,6 @@ export const RickMortySlice = createSlice({
         t.id === action.payload.id ? action.payload : t
       );
     },
-
     deleteCharacter: (state, action: PayloadAction<number | string>) => {
       state.apiRickMorty = state.apiRickMorty.filter(
         (rm) => rm.id !== action.payload

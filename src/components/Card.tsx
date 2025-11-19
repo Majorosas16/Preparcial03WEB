@@ -28,6 +28,7 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
       <p>{status}</p>
 
       <div className="card-buttons">
+        {/* Mostrar botones solo si el userType es "admin" */}
         {userType === "admin" && (
           <>
             <button onClick={handleEdit}>Edit</button>

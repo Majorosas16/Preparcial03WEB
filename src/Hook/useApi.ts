@@ -9,6 +9,7 @@ const useApi = () => {
     fetch("https://rickandmortyapi.com/api/character")
       .then((res) => res.json())
       .then((datos) => {
+        // Datos recibidos del API (.results para obtener el array de personajes)
         setBooksLocal(datos.results);
         
       })
