@@ -35,6 +35,7 @@ function Home() {
 
   return (
     <>
+      <p>*Actualmente eres: {userType}*</p>
       <button onClick={() => dispatch(toggleUserType())}>
         Cambiar a {userType === "admin" ? "usuario" : "administrador"}
       </button>

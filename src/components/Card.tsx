@@ -1,14 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { RickMorty } from "../Types/RickMortyType";
 import type { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+import { RoutesType } from "../Types/RoutesType";
+import { deleteCharacter } from "../redux/slices/RickMortySlice";
 
 export const Card = ({ id, name, status, species, image }: RickMorty) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userType = useSelector((state: RootState) => state.rickMorty.userType);
 
-  // const handleClick = () => {
-  //   dispatch(saveDigi({ id, name, image }));
-  // };
+  const handleEdit = () => {
+    // En resumidas es así: navigate("edit/" + id); (yo que puse a agregar tipados por eso se ve raro);
+    navigate(RoutesType.edit.replace(":id", String(id)));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteCharacter(id));
+  };
 
   return (
     <div className="card">
@@ -21,8 +30,8 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
       <div className="card-buttons">
         {userType === "admin" && (
           <>
-            <button className="btnEdit">Editar</button>
-            <button className="btnDelete">Eliminar</button>
+            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleDelete}>Delete</button>
           </>
         )}
       </div>

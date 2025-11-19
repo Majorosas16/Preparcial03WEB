@@ -28,9 +28,26 @@ export const RickMortySlice = createSlice({
     toggleUserType: (state) => {
       state.userType = state.userType === "admin" ? "user" : "admin";
     },
+    editCharacter: (state, action: PayloadAction<RickMorty>) => {
+      state.apiRickMorty = state.apiRickMorty.map((t) =>
+        t.id === action.payload.id ? action.payload : t
+      );
+    },
+
+    deleteCharacter: (state, action: PayloadAction<number | string>) => {
+      state.apiRickMorty = state.apiRickMorty.filter(
+        (rm) => rm.id !== action.payload
+      );
+    },
   },
 });
 
-export const { saveApi, saveRickMorty, setUserType, toggleUserType } =
-  RickMortySlice.actions;
+export const {
+  saveApi,
+  saveRickMorty,
+  setUserType,
+  toggleUserType,
+  editCharacter,
+  deleteCharacter,
+} = RickMortySlice.actions;
 export default RickMortySlice.reducer;
