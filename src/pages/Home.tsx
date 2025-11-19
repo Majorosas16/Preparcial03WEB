@@ -27,6 +27,7 @@ function Home() {
     }
   }, [RickMorty, digiLocal, dispatch]);
 
+  // Filtro de busqueda
   const filtered = digiLocal.filter((local) =>
     local.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -53,6 +54,7 @@ function Home() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
+        {/* Render del filtro de busqueda */}
       {filtered.map((local, i) => (
         <Card
           id={local.id}
