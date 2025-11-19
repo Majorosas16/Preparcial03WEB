@@ -4,12 +4,12 @@ import type { RickMorty } from "../../Types/RickMortyType";
 //Hay que crearle un tipado al estado inicial
 interface SliceType {
   apiRickMorty: RickMorty[];
-  RickMortyAdd: RickMorty[];
+  userType: "admin" | "user";
 }
 
 const initialState: SliceType = {
   apiRickMorty: [],
-  RickMortyAdd: [],
+  userType: "user",
 };
 
 export const RickMortySlice = createSlice({
@@ -20,10 +20,17 @@ export const RickMortySlice = createSlice({
       state.apiRickMorty = action.payload;
     },
     saveRickMorty: (state, action: PayloadAction<RickMorty>) => {
-      state.RickMortyAdd = [...state.RickMortyAdd, action.payload];
+      state.apiRickMorty = [...state.apiRickMorty, action.payload];
+    },
+    setUserType: (state, action: PayloadAction<"admin" | "user">) => {
+      state.userType = action.payload;
+    },
+    toggleUserType: (state) => {
+      state.userType = state.userType === "admin" ? "user" : "admin";
     },
   },
 });
 
-export const { saveApi, saveRickMorty } = RickMortySlice.actions;
+export const { saveApi, saveRickMorty, setUserType, toggleUserType } =
+  RickMortySlice.actions;
 export default RickMortySlice.reducer;
