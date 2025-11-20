@@ -2,10 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RickMorty } from "../Types/RickMortyType";
 import type { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-// import { RoutesType } from "../Types/RoutesType";
-import { deleteCharacter, favoritesRickMorty } from "../redux/slices/RickMortySlice";
+import { RoutesType } from "../Types/RoutesType";
 
-export const Card = ({ id, name, status, species, image }: RickMorty) => {
+import {
+  deleteCharacter,
+  favoritesRickMorty,
+} from "../redux/slices/RickMortySlice";
+
+export const Card = ({ id, name, status, species, image, gender, created }: RickMorty) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const userType = useSelector((state: RootState) => state.rickMorty.userType);
@@ -17,16 +21,21 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
 
   const handleEdit = () => {
     // En resumidas es así: navigate("edit/" + id); (yo que puse a agregar tipados por eso se ve raro);
-    // navigate(RoutesType.edit.replace(":id", String(id)));
-    navigate(`edit/${id}`)
+    navigate(RoutesType.edit.replace(":id", String(id)));
+    // navigate(`edit/${id}`);
   };
 
   const handleDelete = () => {
     dispatch(deleteCharacter(id));
   };
 
-    const handleFav= () => {
+  const handleFav = () => {
     dispatch(favoritesRickMorty({ id, name, status, species, image }));
+  };
+
+  const handleDetail = () => {
+    // navigate(RoutesType.detail.replace(":id", String(id)));
+    navigate(`detail/${id}`);
   };
 
   return (
@@ -36,14 +45,16 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
       <img src={image} alt={name} />
       <h3>{species}</h3>
       <p>{status}</p>
+      <p>{gender}</p>
+      <p>{created}</p>
 
       <div className="card-buttons">
-
         {userList?.role === "admin" && (
           <>
             <button onClick={handleEdit}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
             <button onClick={handleFav}>Favoritos</button>
+            <button onClick={handleDetail}>Ver detalles</button>
           </>
         )}
       </div>

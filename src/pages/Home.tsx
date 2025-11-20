@@ -42,7 +42,7 @@ function Home() {
     <>
       <button onClick={() => navigate(RoutesType.register)}>Registrar</button>
 
-      <button onClick={() => navigate(RoutesType.favorites)}>Favoritos  </button>
+      <button onClick={() => navigate(RoutesType.favorites)}>Favoritos </button>
 
       {userList && (
         <p key={userList.id}>
@@ -51,6 +51,10 @@ function Home() {
             Cambiar rol
           </button>
         </p>
+      )}
+
+      {userList?.role === "admin" && (
+        <button onClick={() => navigate(RoutesType.create)}>Crear Nuevo</button>
       )}
 
       <p>*Actualmente eres: {userList?.role}*</p>

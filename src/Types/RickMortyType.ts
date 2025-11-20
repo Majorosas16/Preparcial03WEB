@@ -4,5 +4,7 @@ export interface RickMorty {
   status: string;
   species: string;
   image: string;
+  gender?: string;
+  created?: string;
 }
 
