@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CreateForm from "./pages/Create";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EditForm from "./pages/Edit";
+import CreateUser from "./pages/Register";
 import { RoutesType } from "./Types/RoutesType";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <>
       <Router>
         <Routes>
+          <Route path={RoutesType.register} element={<CreateUser />} />
           <Route path={RoutesType.home} element={<Home />} />
           <Route
             path={RoutesType.create}

@@ -17,6 +17,9 @@ function Home() {
     (state: RootState) => state.rickMorty.apiRickMorty
   );
 
+  const userList = useSelector((state: RootState) => state.user.user);
+  console.log(userList);
+
   const userType = useSelector((state: RootState) => state.rickMorty.userType);
 
   console.log(digiLocal); // ci
@@ -36,6 +39,18 @@ function Home() {
 
   return (
     <>
+      {userList.length === 0 ? <p>No hay usuarios creados</p> : null}
+
+      {userList.map((user) => {
+        return (
+          <p key={user.id}>
+            {" "}
+            Hello! {user.name} <br></br> Tiene el rol de:{user.role}
+          </p>
+          
+        );
+      })}
+
       <p>*Actualmente eres: {userType}*</p>
 
       <button onClick={() => dispatch(toggleUserType())}>
@@ -54,7 +69,7 @@ function Home() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-        {/* Render del filtro de busqueda */}
+      {/* Render del filtro de busqueda */}
       {filtered.map((local, i) => (
         <Card
           id={local.id}
