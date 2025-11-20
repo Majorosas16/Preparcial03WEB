@@ -1,7 +1,8 @@
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import useApi from "../Hook/useApi";
-import { saveApi, toggleUserType } from "../redux/slices/RickMortySlice";
+import { saveApi } from "../redux/slices/RickMortySlice";
+import { toggleUserRole } from "../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,8 @@ function Home() {
 
   const userList = useSelector((state: RootState) => state.user.user);
   console.log(userList);
+
+  const currentUser = userList[0]; // tomo el primer usuario
 
   const userType = useSelector((state: RootState) => state.rickMorty.userType);
 
@@ -39,25 +42,28 @@ function Home() {
 
   return (
     <>
+      <button onClick={() => navigate(RoutesType.register)}>Registrar</button>
+
       {userList.length === 0 ? <p>No hay usuarios creados</p> : null}
 
       {userList.map((user) => {
         return (
           <p key={user.id}>
-            {" "}
             Hello! {user.name} <br></br> Tiene el rol de:{user.role}
+            <button onClick={() => dispatch(toggleUserRole({ id: user.id }))}>
+              Cambiar rol
+            </button>
           </p>
-          
         );
       })}
 
       <p>*Actualmente eres: {userType}*</p>
 
-      <button onClick={() => dispatch(toggleUserType())}>
+      {/* <button onClick={() => dispatch(toggleUserType())}>
         Cambiar a {userType === "admin" ? "usuario" : "administrador"}
-      </button>
+      </button> */}
 
-      {userType === "admin" && (
+      {currentUser.role === "admin" && (
         <button onClick={() => navigate(RoutesType.create)}>Crear Nuevo</button>
       )}
 

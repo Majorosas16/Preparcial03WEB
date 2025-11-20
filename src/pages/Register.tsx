@@ -9,6 +9,7 @@ const CreateUser = () => {
   const [user, setUser] = useState("");
   const [role, setRole] = useState("");
 
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,8 +41,8 @@ const CreateUser = () => {
           <input
             type="radio"
             name="role"
-            value="User"
-            checked={role === "User"}
+            value="user"
+            checked={role === "user"}
             onChange={(e) => setRole(e.target.value)}
           />
           User
@@ -49,8 +50,8 @@ const CreateUser = () => {
           <input
             type="radio"
             name="role"
-            value="Admin"
-            checked={role === "Admin"}
+            value="admin"
+            checked={role === "admin"}
             onChange={(e) => setRole(e.target.value)}
           />
           Admin

@@ -8,7 +8,12 @@ import { deleteCharacter } from "../redux/slices/RickMortySlice";
 export const Card = ({ id, name, status, species, image }: RickMorty) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userType = useSelector((state: RootState) => state.rickMorty.userType);
+  // const userType = useSelector((state: RootState) => state.rickMorty.userType);
+
+  const userList = useSelector((state: RootState) => state.user.user);
+  console.log(userList);
+
+  const currentUser = userList[0]; // tomo el primer usuario
 
   const handleEdit = () => {
     // En resumidas es así: navigate("edit/" + id); (yo que puse a agregar tipados por eso se ve raro);
@@ -29,7 +34,7 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
 
       <div className="card-buttons">
         {/* Mostrar botones solo si el userType es "admin" */}
-        {userType === "admin" && (
+        {currentUser.role === "admin" && (
           <>
             <button onClick={handleEdit}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
