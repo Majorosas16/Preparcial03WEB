@@ -1,5 +1,5 @@
 export interface UserType {
   id: number;
   name: string;
-  role: string;
+  role: "admin" | "user";
 }

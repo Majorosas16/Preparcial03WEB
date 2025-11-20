@@ -5,11 +5,13 @@ import type { RickMorty } from "../../Types/RickMortyType";
 interface SliceType {
   apiRickMorty: RickMorty[];
   userType: "admin" | "user";
+  favorites: RickMorty[];
 }
 
 const initialState: SliceType = {
   apiRickMorty: [],
   userType: "user",
+  favorites: [],
 };
 
 export const RickMortySlice = createSlice({
@@ -21,6 +23,9 @@ export const RickMortySlice = createSlice({
     },
     saveRickMorty: (state, action: PayloadAction<RickMorty>) => {
       state.apiRickMorty = [...state.apiRickMorty, action.payload];
+    },
+    favoritesRickMorty: (state, action: PayloadAction<RickMorty>) => {
+      state.favorites = [...state.favorites, action.payload];
     },
     // Establece el userType a un valor concreto (admin o user)
     setUserType: (state, action: PayloadAction<"admin" | "user">) => {
@@ -50,5 +55,6 @@ export const {
   toggleUserType,
   editCharacter,
   deleteCharacter,
+  favoritesRickMorty,
 } = RickMortySlice.actions;
 export default RickMortySlice.reducer;

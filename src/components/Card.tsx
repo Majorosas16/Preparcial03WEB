@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RickMorty } from "../Types/RickMortyType";
 import type { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import { RoutesType } from "../Types/RoutesType";
-import { deleteCharacter } from "../redux/slices/RickMortySlice";
+// import { RoutesType } from "../Types/RoutesType";
+import { deleteCharacter, favoritesRickMorty } from "../redux/slices/RickMortySlice";
 
 export const Card = ({ id, name, status, species, image }: RickMorty) => {
   const dispatch = useDispatch();
@@ -13,15 +13,20 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
   const userList = useSelector((state: RootState) => state.user.user);
   console.log(userList);
 
-  const currentUser = userList[0]; // tomo el primer usuario
+  // const currentUser = userList[0]; // tomo el primer usuario
 
   const handleEdit = () => {
     // En resumidas es así: navigate("edit/" + id); (yo que puse a agregar tipados por eso se ve raro);
-    navigate(RoutesType.edit.replace(":id", String(id)));
+    // navigate(RoutesType.edit.replace(":id", String(id)));
+    navigate(`edit/${id}`)
   };
 
   const handleDelete = () => {
     dispatch(deleteCharacter(id));
+  };
+
+    const handleFav= () => {
+    dispatch(favoritesRickMorty({ id, name, status, species, image }));
   };
 
   return (
@@ -33,11 +38,12 @@ export const Card = ({ id, name, status, species, image }: RickMorty) => {
       <p>{status}</p>
 
       <div className="card-buttons">
-        {/* Mostrar botones solo si el userType es "admin" */}
-        {currentUser.role === "admin" && (
+
+        {userList?.role === "admin" && (
           <>
             <button onClick={handleEdit}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
+            <button onClick={handleFav}>Favoritos</button>
           </>
         )}
       </div>

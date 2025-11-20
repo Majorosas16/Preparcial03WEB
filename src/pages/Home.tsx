@@ -21,9 +21,7 @@ function Home() {
   const userList = useSelector((state: RootState) => state.user.user);
   console.log(userList);
 
-  const currentUser = userList[0]; // tomo el primer usuario
-
-  const userType = useSelector((state: RootState) => state.rickMorty.userType);
+  // const currentUser = userList[0]; // tomo el primer usuario
 
   console.log(digiLocal); // ci
 
@@ -44,28 +42,18 @@ function Home() {
     <>
       <button onClick={() => navigate(RoutesType.register)}>Registrar</button>
 
-      {userList.length === 0 ? <p>No hay usuarios creados</p> : null}
+      <button onClick={() => navigate(RoutesType.favorites)}>Favoritos  </button>
 
-      {userList.map((user) => {
-        return (
-          <p key={user.id}>
-            Hello! {user.name} <br></br> Tiene el rol de:{user.role}
-            <button onClick={() => dispatch(toggleUserRole({ id: user.id }))}>
-              Cambiar rol
-            </button>
-          </p>
-        );
-      })}
-
-      <p>*Actualmente eres: {userType}*</p>
-
-      {/* <button onClick={() => dispatch(toggleUserType())}>
-        Cambiar a {userType === "admin" ? "usuario" : "administrador"}
-      </button> */}
-
-      {currentUser.role === "admin" && (
-        <button onClick={() => navigate(RoutesType.create)}>Crear Nuevo</button>
+      {userList && (
+        <p key={userList.id}>
+          Hello! {userList.name} <br></br> Tiene el rol de:{userList.role}
+          <button onClick={() => dispatch(toggleUserRole({ id: userList.id }))}>
+            Cambiar rol
+          </button>
+        </p>
       )}
+
+      <p>*Actualmente eres: {userList?.role}*</p>
 
       <h2> ↓ Search characters here ↓</h2>
       <input

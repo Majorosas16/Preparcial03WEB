@@ -6,10 +6,10 @@ import { RoutesType } from "../Types/RoutesType";
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const authUser = useSelector((state: RootState) => state.rickMorty.userType);
+  const authUser = useSelector((state: RootState) => state.user.user);
 
   // Si el usuario no es admin, redirigir a la página de HOME
-  if (authUser !== "admin") {
+  if (!authUser?.name || !authUser?.role) {
     return <Navigate to={RoutesType.home} replace />;
   }
   return children;

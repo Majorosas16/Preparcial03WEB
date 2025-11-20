@@ -2,11 +2,11 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { UserType } from "../../Types/UserType";
 
 interface SliceType {
-  user: UserType[];
+  user: UserType | null;
 }
 
 const initialState: SliceType = {
-  user: [],
+  user: null,
 };
 
 export const UserSlice = createSlice({
@@ -14,12 +14,11 @@ export const UserSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state, action: PayloadAction<UserType>) => {
-      state.user = [...state.user, action.payload];
+      state.user = action.payload; // Reemplaza cualquier usuario existente
     },
     toggleUserRole: (state, action: PayloadAction<{ id: number }>) => {
-      const user = state.user.find((u) => u.id === action.payload.id);
-      if (user) {
-        user.role = user.role === "admin" ? "user" : "admin";
+      if (state.user && state.user.id === action.payload.id) {
+        state.user.role = state.user.role === "admin" ? "user" : "admin";
       }
     },
   },

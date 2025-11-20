@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import Fav from "./pages/Favorites";
 import CreateForm from "./pages/Create";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EditForm from "./pages/Edit";
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path={RoutesType.register} element={<CreateUser />} />
           <Route path={RoutesType.home} element={<Home />} />
+          <Route path={RoutesType.favorites} element={<Fav />} />
           <Route
             path={RoutesType.create}
             element={
